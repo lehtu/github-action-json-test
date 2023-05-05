@@ -1,0 +1,18 @@
+name: fetch-nhl-leaderboard
+run-name: ${{ github.actor }} is fetching NHL data
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+jobs:
+  fetch-nhl-leaderboard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Fetch API Data
+        uses: JamesIves/fetch-api-data-action@v2
+        with:
+          endpoint: https://low6-nhl-brackets-prod.azurewebsites.net/leagues/19816/leaderboard?offset=0&limit=50
